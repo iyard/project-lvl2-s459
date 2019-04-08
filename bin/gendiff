@@ -2,8 +2,6 @@
 <?php
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
-//echo ("\n {$autoloadPath1} \n");
-//echo ("\n {$autoloadPath2} \n");
 if (file_exists($autoloadPath1)) {
     require_once $autoloadPath1;
 } else {
