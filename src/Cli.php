@@ -1,8 +1,8 @@
 <?php
-namespace App\Cli;
+namespace Differ\Cli;
 
 use \Docopt;
-use function App\GenDiff\genDiff;
+use function Differ\GenDiff\genDiff;
 
 const DOC = <<<DOC
 Generate diff
@@ -24,7 +24,7 @@ function run()
     $firstFile = $handle->args['<firstFile>'];
     $secondFile = $handle->args['<secondFile>'];
     $dir = \getcwd() . DIRECTORY_SEPARATOR;
-    $firstPath =  $dir . $firstFile;
-    $secondPath = $dir . $secondFile;
-    echo genDiff($firstPath, $secondPath);
+    $firstFilePath =  $dir . $firstFile;
+    $secondFilePath = $dir . $secondFile;
+    echo genDiff($firstFilePath, $secondFilePath);
 }

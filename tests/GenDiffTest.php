@@ -1,31 +1,36 @@
 <?php
 
-namespace App\Tests;
+namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
-use function App\GenDiff\genDiff;
+use function Differ\GenDiff\genDiff;
 
 const TEST_DATA_DIR = "/tests/testData/";
 
 class GenDiffTest extends TestCase
 {
-	/**
-	 * @dataProvider additionProvider
-	 */
-	public function testGenDiff($expected, $before, $after)
-	{
-		$this->assertEquals($expected, genDiff($before, $after));
+    /**
+    * @dataProvider additionProvider
+    */
+    public function testGenDiff($expected, $valueBefore, $valueAfter)
+    {
+        $this->assertEquals($expected, genDiff($valueBefore, $valueAfter));
+    }
 
-	}
+    public function additionProvider()
+    {
+        $dir = \getcwd() . TEST_DATA_DIR;
+        $jsonExpected = trim(file_get_contents(__DIR__ . "/testData/jsonExpected.txt")) . PHP_EOL;
+        $jsonBefore = $dir . "jsonBefore.json";
+        $jsonAfter = $dir . "jsonAfter.json";
+        
+        $ymlExpected = trim(file_get_contents(__DIR__ . "/testData/ymlExpected.txt")) . PHP_EOL;
+        $ymlBefore = $dir . "ymlBefore.yml";
+        $ymlAfter = $dir . "ymlAfter.yml";
 
-	public function additionProvider ()
-	{
-		$expected1 = trim(file_get_contents(__DIR__ . "/testData/JsonExpected.txt")) . PHP_EOL;
-		$before1 = \getcwd() . TEST_DATA_DIR . "JsonBefore.json";
-		$after1 = \getcwd() . TEST_DATA_DIR . "JsonAfter.json";
-
-		return [
-			[$expected1, $before1, $after1]
-		];
-	}
+        return [
+            [$jsonExpected, $jsonBefore, $jsonAfter],
+            [$ymlExpected, $ymlBefore, $ymlAfter]
+        ];
+    }
 }

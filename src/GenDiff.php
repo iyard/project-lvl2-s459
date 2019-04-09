@@ -1,59 +1,46 @@
 <?php
 
-namespace App\GenDiff;
+namespace Differ\GenDiff;
 
-function getData($path)
+use function Differ\Parser\parse;
+
+function render($data)
 {
-    $data = json_decode(trim(file_get_contents($path)), $assoc = true);
-    return array_reduce(array_keys($data), function ($acc, $key) use ($data) {
-        if ($data[$key] === true) {
-            $acc[$key] = 'true';
-        } elseif ($data[$key] === false) {
-            $acc[$key] = 'false';
-        } else {
-            $acc[$key] = $data[$key];
-        }
+    $rendererData = array_reduce($data, function ($acc, $item) {
+        $acc[] = "  {$item['diff']} {$item['key']}: {$item['value']}";
         return $acc;
     }, []);
+    $stringData = implode(PHP_EOL, $rendererData);
+    $template = "{\n$stringData\n}" . PHP_EOL;
+    return $template;
 }
 
-function render($coll)
+function getDiff($dataBefore, $dataAfter)
 {
-    $rendererColl = implode(PHP_EOL, $coll);
-    $template = <<<EOD
-{
-$rendererColl
-}
-EOD;
-    return $template . PHP_EOL;
-}
-
-function getDiff($before, $after)
-{
-    $keys = array_unique(array_merge(array_keys($before), array_keys($after)));
-    $fn = function ($acc, $key) use ($before, $after) {
-        if (array_key_exists($key, $before) && array_key_exists($key, $after)) {
-            if ($before[$key] == $after[$key]) {
-                $acc[] = "    {$key}: {$before[$key]}";
+    $keys = array_unique(array_merge(array_keys($dataBefore), array_keys($dataAfter)));
+    $accumulateDiff = function ($acc, $key) use ($dataBefore, $dataAfter) {
+        if (array_key_exists($key, $dataBefore) && array_key_exists($key, $dataAfter)) {
+            if ($dataBefore[$key] == $dataAfter[$key]) {
+                $acc[] = ['diff' => ' ', 'key' => $key, 'value' => $dataBefore[$key]];
             } else {
-                $acc[] = "  + {$key}: {$after[$key]}";
-                $acc[] = "  - {$key}: {$before[$key]}";
+                $acc[] = ['diff' => '+', 'key' => $key, 'value' => $dataAfter[$key]];
+                $acc[] = ['diff' => '-', 'key' => $key, 'value' => $dataBefore[$key]];
             }
-        } elseif (!array_key_exists($key, $before)) {
-            $acc[] = "  + {$key}: {$after[$key]}";
+        } elseif (!array_key_exists($key, $dataBefore)) {
+            $acc[] = ['diff' => '+', 'key' => $key, 'value' => $dataAfter[$key]];
         } else {
-            $acc[] = "  - {$key}: {$before[$key]}";
+            $acc[] = ['diff' => '-', 'key' => $key, 'value' => $dataBefore[$key]];
         }
         return $acc;
     };
-    $diff = array_reduce($keys, $fn, []);
+    $diff = array_reduce($keys, $accumulateDiff, []);
     return $diff;
 }
 
-function genDiff($firstPath, $secondPath)
+function genDiff($firstFilePath, $secondFilePath)
 {
-    $before = getData($firstPath);
-    $after = getData($secondPath);
-    $diff = getDiff($before, $after);
+    $dataBefore = parse($firstFilePath);
+    $dataAfter = parse($secondFilePath);
+    $diff = getDiff($dataBefore, $dataAfter);
     return render($diff);
 }
