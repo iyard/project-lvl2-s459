@@ -20,9 +20,9 @@ class GenDiffTest extends TestCase
     public function additionProvider()
     {
         $dir = \getcwd() . TEST_DATA_DIR;
-        $jsonExpected = trim(file_get_contents(__DIR__ . "/testData/jsonExpected.txt")) . PHP_EOL;
-        $jsonBefore = $dir . "jsonBefore.json";
-        $jsonAfter = $dir . "jsonAfter.json";
+        $jsonExpected = trim(file_get_contents(__DIR__ . "/testData/JsonExpected.txt")) . PHP_EOL;
+        $jsonBefore = $dir . "JsonBefore.json";
+        $jsonAfter = $dir . "JsonAfter.json";
         
         $ymlExpected = trim(file_get_contents(__DIR__ . "/testData/ymlExpected.txt")) . PHP_EOL;
         $ymlBefore = $dir . "ymlBefore.yml";
