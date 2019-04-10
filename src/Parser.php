@@ -3,10 +3,9 @@
 namespace Differ\Parser;
 use Symfony\Component\Yaml\Yaml;
 
-function parse($filePath)
+function parse($fileType, $data)
 {
-    $data = trim(file_get_contents($filePath));
-    switch (getFiletype($filePath)) {
+    switch ($fileType) {
         case 'json':
             return parseJson($data);
             break;
@@ -16,10 +15,15 @@ function parse($filePath)
     }
 }
 
-function getFiletype($filePath)
+function parseJson($data)
 {
-    $pathParts = pathinfo($filePath);
-    return $pathParts['extension'];
+    $decodedData = json_decode($data, $assoc = true);
+    return replaceBool($decodedData);
+}
+
+function parseYml($data)
+{
+    return replaceBool(Yaml::parse($data));
 }
 
 function boolToStr($bool)
@@ -35,13 +39,13 @@ function replaceBool($data)
     }, []);
 }
 
-function parseJson($data)
+function getData($filePath)
 {
-    $decodedData = json_decode($data, $assoc = true);
-    return replaceBool($decodedData);
+    return trim(file_get_contents($filePath));
 }
 
-function parseYml($data)
+function getFileType($filePath)
 {
-    return replaceBool(Yaml::parse($data));
+    $pathParts = pathinfo($filePath);
+    return $pathParts['extension'];
 }

@@ -21,10 +21,10 @@ DOC;
 function run()
 {
     $handle = Docopt :: handle(DOC);
-    $firstFile = $handle->args['<firstFile>'];
-    $secondFile = $handle->args['<secondFile>'];
+    $fileBefore = $handle->args['<firstFile>'];
+    $fileAfter = $handle->args['<secondFile>'];
     $dir = \getcwd() . DIRECTORY_SEPARATOR;
-    $firstFilePath =  $dir . $firstFile;
-    $secondFilePath = $dir . $secondFile;
-    echo genDiff($firstFilePath, $secondFilePath);
+    $pathFileBefore =  $dir . $fileBefore;
+    $pathFileAfter = $dir . $fileAfter;
+    echo genDiff($pathFileBefore, $pathFileAfter);
 }

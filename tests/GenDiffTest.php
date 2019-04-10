@@ -5,8 +5,6 @@ namespace Differ\Tests;
 use PHPUnit\Framework\TestCase;
 use function Differ\GenDiff\genDiff;
 
-const TEST_DATA_DIR = "/tests/testData/";
-
 class GenDiffTest extends TestCase
 {
     /**
@@ -19,14 +17,13 @@ class GenDiffTest extends TestCase
 
     public function additionProvider()
     {
-        $dir = \getcwd() . TEST_DATA_DIR;
-        $jsonExpected = trim(file_get_contents(__DIR__ . "/testData/JsonExpected.txt")) . PHP_EOL;
-        $jsonBefore = $dir . "JsonBefore.json";
-        $jsonAfter = $dir . "JsonAfter.json";
+        $jsonExpected = trim(file_get_contents(__DIR__ . '/testData/JsonExpected.txt')) . PHP_EOL;
+        $jsonBefore = __DIR__ . '/testData/JsonBefore.json';
+        $jsonAfter = __DIR__ . '/testData/JsonAfter.json';
         
-        $ymlExpected = trim(file_get_contents(__DIR__ . "/testData/ymlExpected.txt")) . PHP_EOL;
-        $ymlBefore = $dir . "ymlBefore.yml";
-        $ymlAfter = $dir . "ymlAfter.yml";
+        $ymlExpected = trim(file_get_contents(__DIR__ . '/testData/ymlExpected.txt')) . PHP_EOL;
+        $ymlBefore = __DIR__ . '/testData/ymlBefore.yml';
+        $ymlAfter = __DIR__ . '/testData/ymlAfter.yml';
 
         return [
             [$jsonExpected, $jsonBefore, $jsonAfter],

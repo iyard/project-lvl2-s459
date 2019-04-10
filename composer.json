@@ -14,7 +14,9 @@
     "files": [
       "src/Cli.php",
       "src/GenDiff.php",
-      "src/Parser.php"
+      "src/Parser.php",
+      "src/Render.php",
+      "src/Ast.php"
     ]
   },
   "scripts": {
