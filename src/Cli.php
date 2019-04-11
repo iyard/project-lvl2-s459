@@ -20,11 +20,16 @@ DOC;
 
 function run()
 {
-    $handle = Docopt :: handle(DOC);
+    $handle = Docopt::handle(DOC);
     $fileBefore = $handle->args['<firstFile>'];
     $fileAfter = $handle->args['<secondFile>'];
+    $format = $handle->args['--format'];
+    $isFullPath = function ($path) {
+        return $path[0] === DIRECTORY_SEPARATOR;
+    };
     $dir = \getcwd() . DIRECTORY_SEPARATOR;
-    $pathFileBefore =  $dir . $fileBefore;
-    $pathFileAfter = $dir . $fileAfter;
-    echo genDiff($pathFileBefore, $pathFileAfter);
+    $pathFileBefore = $isFullPath($fileBefore) ? $fileBefore : $dir . $fileBefore;
+    $pathFileAfter = $isFullPath($fileAfter) ? $fileAfter : $dir . $fileAfter;
+
+    echo genDiff($pathFileBefore, $pathFileAfter, $format);
 }

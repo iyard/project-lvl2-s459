@@ -2,13 +2,17 @@
 
 namespace Differ\Render;
 
-function render($data)
+use function Differ\Views\Plain\plain;
+use function Differ\Views\Pretty\pretty;
+
+function render($ast, $format)
 {
-    $rendererData = array_reduce($data, function ($acc, $item) {
-        $acc[] = "  {$item['diff']} {$item['key']}: {$item['value']}";
-        return $acc;
-    }, []);
-    $stringData = implode(PHP_EOL, $rendererData);
-    $template = "{\n$stringData\n}" . PHP_EOL;
-    return $template;
+    switch ($format) {
+        case 'pretty':
+            return pretty($ast);
+            break;
+        default:
+            return pretty($ast);
+            break;
+    }
 }

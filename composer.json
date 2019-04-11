@@ -16,7 +16,9 @@
       "src/GenDiff.php",
       "src/Parser.php",
       "src/Render.php",
-      "src/Ast.php"
+      "src/Ast.php",
+      "src/views/Pretty.php",
+      "src/views/Plain.php"
     ]
   },
   "scripts": {
