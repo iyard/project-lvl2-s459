@@ -17,8 +17,8 @@
       "src/Parser.php",
       "src/Render.php",
       "src/Ast.php",
-      "src/views/Pretty.php",
-      "src/views/Plain.php"
+      "src/renderers/Pretty.php",
+      "src/renderers/Plain.php"
     ]
   },
   "scripts": {

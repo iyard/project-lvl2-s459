@@ -29,10 +29,13 @@ class GenDiffTest extends TestCase
         $jsonAstBefore = __DIR__ . '/testData/JsonAstBefore.json';
         $jsonAstAfter = __DIR__ . '/testData/JsonAstAfter.json';
 
+        $jsonAstPlainExpected = trim(file_get_contents(__DIR__ . '/testData/JsonAstPlainExpected.txt')) . PHP_EOL;
+
         return [
             [$jsonExpected, $jsonBefore, $jsonAfter, 'pretty'],
             [$ymlExpected, $ymlBefore, $ymlAfter, 'pretty'],
-            [$jsonAstExpected, $jsonAstBefore, $jsonAstAfter, 'pretty']
+            [$jsonAstExpected, $jsonAstBefore, $jsonAstAfter, 'pretty'],
+            [$jsonAstPlainExpected, $jsonAstBefore, $jsonAstAfter, 'plain']
         ];
     }
 }

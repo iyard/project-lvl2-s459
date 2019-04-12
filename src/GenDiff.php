@@ -8,8 +8,8 @@ use function Differ\Render\render;
 
 function genDiff($pathFileBefore, $pathFileAfter, $format)
 {
-    $dataBefore = parse(getFileType($pathFileBefore), getData($pathFileBefore));
-    $dataAfter = parse(getFileType($pathFileAfter), getData($pathFileAfter));
+    $dataBefore = parse(getFileExtention($pathFileBefore), getData($pathFileBefore));
+    $dataAfter = parse(getFileExtention($pathFileAfter), getData($pathFileAfter));
     $ast = buildAst($dataBefore, $dataAfter);
     return render($ast, $format);
 }
@@ -19,7 +19,7 @@ function getData($filePath)
     return trim(file_get_contents($filePath));
 }
 
-function getFileType($filePath)
+function getFileExtention($filePath)
 {
     $pathParts = pathinfo($filePath);
     return $pathParts['extension'];
