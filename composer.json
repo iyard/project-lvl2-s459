@@ -18,7 +18,8 @@
       "src/Render.php",
       "src/Ast.php",
       "src/renderers/Pretty.php",
-      "src/renderers/Plain.php"
+      "src/renderers/Plain.php",
+      "src/renderers/Json.php"
     ]
   },
   "scripts": {
