@@ -7,7 +7,7 @@ function parse($fileExtention, $data)
 {
     switch ($fileExtention) {
         case 'json':
-            return json_decode($data, $assoc = true);
+            return json_decode($data, true);
             break;
         case 'yml':
             return Yaml::parse($data);
