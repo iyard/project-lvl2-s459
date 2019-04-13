@@ -4,7 +4,7 @@ namespace Differ\Renderers\Pretty;
 
 use function Funct\Collection\flattenAll;
 
-function pretty($ast)
+function renderPretty($ast)
 {
     $mappedAst =  array_map(function ($data) {
         return getPretty($data, 0);
@@ -24,11 +24,12 @@ function getPretty($data, $level)
 
         switch ($type) {
             case 'node':
+                $mappedChildren = function ($data) use ($level) {
+                    return getPretty($data, $level + 1);
+                };
                 return [
                     getOffset($level) . "    {$key}: {",
-                    array_map(function ($data) use ($level) {
-                        return getPretty($data, $level + 1);
-                    }, $children),
+                    array_map($mappedChildren, $children),
                     getOffset($level) . "    }"
                 ];
             case 'unchanged':

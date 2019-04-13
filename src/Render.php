@@ -2,20 +2,20 @@
 
 namespace Differ\Render;
 
-use function Differ\Renderers\Plain\plain;
-use function Differ\Renderers\Pretty\pretty;
-use function Differ\Renderers\Json\json;
+use function Differ\Renderers\Plain\renderPlain;
+use function Differ\Renderers\Pretty\renderPretty;
+use function Differ\Renderers\Json\renderJson;
 
 function render($ast, $format)
 {
     switch ($format) {
         case 'pretty':
-            return pretty($ast);
+            return renderPretty($ast);
         case 'plain':
-            return plain($ast);
+            return renderPlain($ast);
         case 'json':
-            return json($ast);
+            return renderJson($ast);
         default:
-            return pretty($ast);
+            return renderPretty($ast);
     }
 }

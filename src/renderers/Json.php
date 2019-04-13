@@ -2,7 +2,7 @@
 
 namespace Differ\Renderers\Json;
 
-function json($ast)
+function renderJson($ast)
 {
     return (json_encode($ast));
 }
