@@ -18,8 +18,8 @@ Usage:
   gendiff [--format <fmt>] <firstFile> <secondFile>
 
 Options:
-  -h --help     	Show this screen
-  --format <fmt>	Report format [default: pretty]
-  --version     	Show version
+  * -h --help     	Show this screen
+  * --format <fmt>	Report format [default: pretty]
+  * --version     	Show version
 
 [Example](https://asciinema.org/a/djmltHYsmolMEznqystOixBbf)
