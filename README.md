@@ -13,4 +13,13 @@ composer global require i-yard/gendiff:dev-master
 Make sure you have the composer bin dir in your PATH. The default value is `~/.composer/vendor/bin/`, but you can check the value that you need to use by running `composer global config bin-dir --absolute`.
 
 # How to use
-Comming soon...
+Usage:
+  gendiff (-h|--help)
+  gendiff [--format <fmt>] <firstFile> <secondFile>
+
+Options:
+  -h --help     	Show this screen
+  --format <fmt>	Report format [default: pretty]
+  --version     	Show version
+
+[Example](https://asciinema.org/a/djmltHYsmolMEznqystOixBbf)
